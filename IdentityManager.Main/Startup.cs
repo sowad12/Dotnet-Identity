@@ -1,5 +1,6 @@
 ﻿
 using IdentityManager.Library.Contexts;
+using IdentityManager.Library.Models.Entites;
 using IdentityManager.Main.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Net.Http.Headers;
@@ -32,7 +33,8 @@ namespace IdentityManager.Main
                 options.IdleTimeout = TimeSpan.FromMinutes(1440);
             });
 
-            services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole>().
+                AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddDependencies(_configuration);
         
            
