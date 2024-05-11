@@ -24,19 +24,16 @@ namespace IdentityManager.Main.Extensions
 
             // Add Database Context
             services.AddDatabaseContextService(configuration);
-            //services.AddDatabaseContextService(configuration, logger);
+            
             services.AddScoped<ISession>(provider =>
             provider
                 .GetRequiredService<IHttpContextAccessor>()
                 .HttpContext
                 .Session);
 
-           
+            services.AddIdentityDependencies(configuration);
             services.Configure<Library.Infrastructure.Options.AppOptions>(configuration.GetSection(nameof(Library.Infrastructure.Options.AppOptions)));
-            //services.Configure<Externals.ClubeezAPI.DependencyInjection.Options.ClubeezOptions>(configuration.GetSection(nameof(Externals.ClubeezAPI.DependencyInjection.Options.ClubeezOptions)));
            
-            //services.AddScoped<IFieldConfigurationManager, FieldConfigurationManager>();
-
             return services;
         }
 

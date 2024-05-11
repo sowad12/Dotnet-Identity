@@ -33,13 +33,10 @@ namespace IdentityManager.Main
                 options.IdleTimeout = TimeSpan.FromMinutes(1440);
             });
 
-            services.AddIdentity<ApplicationUser, IdentityRole>().
-                AddEntityFrameworkStores<ApplicationDbContext>();
+           
             services.AddDependencies(_configuration);
         
-           
-
-            
+                   
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
