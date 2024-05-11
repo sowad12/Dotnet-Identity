@@ -1,4 +1,5 @@
 ﻿using IdentityManager.Library.Infrastructure;
+using IdentityManager.Library.Models.Entites;
 using Microsoft.EntityFrameworkCore;
 
 namespace IdentityManager.Library.Contexts
@@ -30,7 +31,7 @@ namespace IdentityManager.Library.Contexts
             base.OnModelCreating(modelBuilder);
         }
 
-        
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
 
     }
 }

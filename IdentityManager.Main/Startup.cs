@@ -1,5 +1,7 @@
 ﻿
+using IdentityManager.Library.Contexts;
 using IdentityManager.Main.Extensions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Net.Http.Headers;
 
 
@@ -30,9 +32,9 @@ namespace IdentityManager.Main
                 options.IdleTimeout = TimeSpan.FromMinutes(1440);
             });
 
-
+            services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddDependencies(_configuration);
-            //services.AddControllers().AddNewtonsoftJson();
+        
            
 
             
@@ -50,7 +52,7 @@ namespace IdentityManager.Main
                 app.UseDeveloperExceptionPage();;
             }
 
-            app.UseAuthentication();
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSession();
@@ -64,6 +66,7 @@ namespace IdentityManager.Main
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
          
