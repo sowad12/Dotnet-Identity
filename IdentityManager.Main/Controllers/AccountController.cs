@@ -75,11 +75,15 @@ namespace IdentityManager.Main.Controllers
             model.ReturnUrl = model.ReturnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var result =await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                var result =await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
                     //return RedirectToAction("Index", "Home");
                     return LocalRedirect(model.ReturnUrl);
+                }
+                else if (result.IsLockedOut)
+                {
+                    return View("Lockout");
                 }
                 else
                 {
