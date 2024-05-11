@@ -24,9 +24,10 @@ namespace IdentityManager.Main.Controllers
             return View();
         }
         [HttpGet]
-        public async Task<IActionResult> Register()
+        public async Task<IActionResult> Register(string returnurl = null)
         {
             var registerViewModel = new RegisterViewModel();
+            registerViewModel.ReturnUrl = returnurl;
             return View(registerViewModel);
 
         }
@@ -34,6 +35,7 @@ namespace IdentityManager.Main.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
+            model.ReturnUrl = model.ReturnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser
@@ -48,28 +50,36 @@ namespace IdentityManager.Main.Controllers
                 if(result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    //return RedirectToAction("Index", "Home");
+                    return LocalRedirect(model.ReturnUrl);
                 }
                 AddErrors(result);
             }
             return View(model);
         }
         [HttpGet]
-        public async Task<IActionResult> Login()
+        public async Task<IActionResult> Login(string returnurl = null)
         {
+            ViewData["ReturnUrl"] = returnurl;
+            //returnurl = returnurl ?? Url.Content("~/");
+            //ViewBag.ReturnUrl = returnUrl;
             var loginViewModel = new LoginViewModel();
+            loginViewModel.ReturnUrl = returnurl;
             return View(loginViewModel);
 
         }
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
+            //ViewData["ReturnUrl"] = returnurl;
+            model.ReturnUrl = model.ReturnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
                 var result =await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    //return RedirectToAction("Index", "Home");
+                    return LocalRedirect(model.ReturnUrl);
                 }
                 else
                 {

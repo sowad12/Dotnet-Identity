@@ -27,6 +27,7 @@ namespace IdentityManager.Library.Models.ViewModels
         [Display(Name = "Confirm password")]
         [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+        public string ReturnUrl { get; set; }
 
         //public IEnumerable<SelectListItem>? RoleList { get; set; }
         //[Display(Name = "Role")]
