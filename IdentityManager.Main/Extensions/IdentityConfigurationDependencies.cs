@@ -10,7 +10,7 @@ namespace IdentityManager.Main.Extensions
         {
             //IdentityConfiguration
             services.AddIdentity<ApplicationUser, IdentityRole>().
-                AddEntityFrameworkStores<ApplicationDbContext>();
+                AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
             services.Configure<IdentityOptions>(opt =>
             {
                 //password configuration

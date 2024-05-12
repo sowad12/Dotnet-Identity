@@ -100,6 +100,18 @@ namespace IdentityManager.Main.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home"); 
         }
+        [HttpGet]
+        public async Task<IActionResult> ForgotPassword(string returnurl = null)
+        {
+            ForgotPasswordViewModel forgotPasswordViewModel=new ForgotPasswordViewModel();
+            forgotPasswordViewModel.ReturnUrl= returnurl;
+            return View(forgotPasswordViewModel);
+        }
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            return View();
+        }
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)

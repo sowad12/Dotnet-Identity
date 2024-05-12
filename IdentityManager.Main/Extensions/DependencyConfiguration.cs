@@ -1,6 +1,9 @@
 ﻿
 
 
+using IdentityManager.Main.Services;
+using Microsoft.AspNetCore.Identity.UI.Services;
+
 namespace IdentityManager.Main.Extensions
 {
     public static class DependencyConfiguration
@@ -33,7 +36,7 @@ namespace IdentityManager.Main.Extensions
 
             services.AddIdentityDependencies(configuration);
             services.Configure<Library.Infrastructure.Options.AppOptions>(configuration.GetSection(nameof(Library.Infrastructure.Options.AppOptions)));
-           
+            services.AddTransient<IEmailSender, EmailSender>();
             return services;
         }
 
